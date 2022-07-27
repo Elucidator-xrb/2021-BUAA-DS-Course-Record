@@ -1,0 +1,37 @@
+#include<stdlib.h>
+#include<conio.h>
+
+/*移动 固定 溢出 消行 四种状态*/
+/* Pseudocode
+for(初始化;结束条件;延迟)
+{
+    输入();
+    if(移动())
+        if(Y==0) 结束();
+        if(行满()) 消行();
+    输出();
+}
+*/
+
+int Width,Height,Size;
+int X,Y,T;
+int daily,*map,node[]={
+    51264, 12816, 21520, 21520, 25872, 34113, 21537, 38208, 25921, 38481,
+	38484, 38209, 25922, 43345, 34388, 38160, 25920, 38177, 42580, 38993};
+int i,x,y,c=1;
+
+int move(int *cond, int step)//判断动作命令是否合法
+{
+    for(*cond+=step,i=node[T];i;i>>=4)
+    {
+        x=X+i%4;
+        y=Y+i/4%4;
+        (x<0 || x>=Width || y>=Height || map[y*Width+x]) && (c=0);//利用短路逻辑！
+        //c=0 - 无效; c=1 - 有效
+    }
+    return c ? 1 : (*cond-=step,cond==&Y && (c=-1));
+    //有效：1
+    //无效：状态回退
+    //      若此时作下移运动，则说明触底，进入“固定状态”
+}
+

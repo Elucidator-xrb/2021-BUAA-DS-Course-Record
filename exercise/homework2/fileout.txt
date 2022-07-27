@@ -1,0 +1,4 @@
+maout()
+{
+    outt a,b;
+}
